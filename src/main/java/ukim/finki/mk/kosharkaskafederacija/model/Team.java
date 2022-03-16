@@ -10,6 +10,7 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
+@Entity
 public class Team {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -22,12 +23,20 @@ public class Team {
     @Column(nullable = false)
     private String address;
 
-    //dali moze da bide lista?
     private String sponsor;
 
     private String homeField;
 
     private Integer points;
+
+    private
+    @OneToMany(mappedBy = "player",fetch = FetchType.EAGER,cascade = {CascadeType.PERSIST,
+            CascadeType.MERGE})
+    List<Player> players;
+
+    @OneToMany(mappedBy = "coach",fetch = FetchType.EAGER,cascade = {CascadeType.PERSIST,
+            CascadeType.MERGE})
+    List<Coach> coaches;
 
     //to do: zaso tuka ne gi cuvame igracite i trenerot?
 

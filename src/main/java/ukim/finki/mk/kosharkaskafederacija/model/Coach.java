@@ -2,11 +2,13 @@ package ukim.finki.mk.kosharkaskafederacija.model;
 
 
 import lombok.*;
+import ukim.finki.mk.kosharkaskafederacija.enumerations.CoachType;
 
 import javax.persistence.*;
 
 @NoArgsConstructor
 @Data
+@Entity
 public class Coach {
     @Id
     @Column(name = "coach_id",nullable = false)
@@ -15,12 +17,11 @@ public class Coach {
 
     private String name;
 
-    //???
-    @Column(name = "coach_type", length = 20)
-    private String coachType;
+    @Enumerated(EnumType.STRING)
+    private CoachType coachType;
 
     @ManyToOne
-    @JoinColumn(name = "id_team")
-    private Team idTeam;
+    @JoinColumn(name = "team_id")
+    private Team team;
 
 }

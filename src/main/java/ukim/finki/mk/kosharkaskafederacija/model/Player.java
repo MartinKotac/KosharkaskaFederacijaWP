@@ -6,6 +6,7 @@ import javax.persistence.*;
 
 @NoArgsConstructor
 @Data
+@Entity
 public class Player {
     @Id
     @Column(name = "player_id",nullable = false)
@@ -17,18 +18,28 @@ public class Player {
     @Column(length = 2)
     private String position;
 
-    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
-    @JoinColumn(name = "id")
-    private Team idTeam;
+    @ManyToOne
+    @JoinColumn(name = "team_id")
+    private Team team;
 
-    //to do: broj poeni
+    private Double ppg;
 
+    private Double apg;
+
+    private Double rpg;
+
+    private Double mpg;
+
+    private Integer gamesPlayed;
 
     public Player(Integer jerseyNumber, String position, Team idTeam) {
         this.jerseyNumber = jerseyNumber;
         this.position = position;
-        this.idTeam = idTeam;
+        this.team = idTeam;
+        ppg=0.0;
+        apg=0.0;
+        rpg=0.0;
+        mpg=0.0;
+        gamesPlayed=0;
     }
-
-
 }

@@ -8,6 +8,7 @@ import javax.persistence.*;
 
 @Data
 @NoArgsConstructor
+@Entity
 public class Delegation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -7,6 +7,7 @@ import javax.persistence.*;
 
 @Data
 @NoArgsConstructor
+@Entity
 public class Referee {
     @Id
     @Column(name = "referee_id", nullable = false)
