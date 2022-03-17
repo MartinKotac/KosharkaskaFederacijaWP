@@ -11,7 +11,7 @@ public class Player {
     @Id
     @Column(name = "player_id",nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     private Integer jerseyNumber;
 
@@ -19,7 +19,6 @@ public class Player {
     private String position;
 
     @ManyToOne
-    @JoinColumn(name = "team_id")
     private Team team;
 
     private Double ppg;

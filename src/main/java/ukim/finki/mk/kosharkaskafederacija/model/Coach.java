@@ -13,7 +13,7 @@ public class Coach {
     @Id
     @Column(name = "coach_id",nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     private String name;
 
@@ -21,6 +21,11 @@ public class Coach {
     private CoachType coachType;
 
     @ManyToOne
-    @JoinColumn(name = "team_id")
     private Team team;
+
+    public Coach(String name, CoachType coachType, Team team) {
+        this.name = name;
+        this.coachType = coachType;
+        this.team = team;
+    }
 }

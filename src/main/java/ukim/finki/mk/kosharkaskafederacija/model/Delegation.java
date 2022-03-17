@@ -13,7 +13,7 @@ public class Delegation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "delegation_id", nullable = false)
-    private String id;
+    private Long id;
 
     @Column(nullable = false)
     private Integer level;
