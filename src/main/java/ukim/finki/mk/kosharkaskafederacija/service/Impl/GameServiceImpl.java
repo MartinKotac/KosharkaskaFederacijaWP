@@ -36,10 +36,10 @@ public class GameServiceImpl implements GameService {
 
 
     @Override
-    public Game create(String result, LocalDate dateОfMaintenance, List<Integer> refereesId, Long delegationId, Long homeTeam, Long awayTeam) {
+    public Game create(String result, LocalDate dateОfMaintenance, List<Integer> refereesId, Long delegationId, String homeTeam, String awayTeam) {
         List<Referee> referees = refereeRepository.findAllById(refereesId);
-        Team Team1=teamRepository.findById(homeTeam.intValue()).orElseThrow(()->new TeamDoesNotExistException(homeTeam));
-        Team Team2 = teamRepository.findById(awayTeam.intValue()).orElseThrow(()->new TeamDoesNotExistException((awayTeam)));
+        Team Team1=teamRepository.findById(homeTeam).orElseThrow(()->new TeamDoesNotExistException(homeTeam));
+        Team Team2 = teamRepository.findById(awayTeam).orElseThrow(()->new TeamDoesNotExistException((awayTeam)));
         Delegation delegation=delegationRepository.findById(delegationId.intValue()).orElseThrow(()->new DelegationDoesNotExistException(delegationId));
         if(referees.size()>0)
             return gameRepository.save(new Game(result,dateОfMaintenance,referees,delegation,Team1,Team2));
@@ -65,11 +65,11 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
-    public Game edit(Long id, String result, LocalDate dateОfMaintenance, List<Integer> refereesId, Long delegationId, Long homeTeam, Long awayTeam) {
+    public Game edit(Long id, String result, LocalDate dateОfMaintenance, List<Integer> refereesId, Long delegationId, String homeTeam, String awayTeam) {
         Game game=gameRepository.findById(id.intValue()).orElseThrow(()->new GameDoesNotExistException(id));
         List<Referee> referees = refereeRepository.findAllById(refereesId);
-        Team Team1=teamRepository.findById(homeTeam.intValue()).orElseThrow(()->new TeamDoesNotExistException(homeTeam));
-        Team Team2 = teamRepository.findById(awayTeam.intValue()).orElseThrow(()->new TeamDoesNotExistException((awayTeam)));
+        Team Team1=teamRepository.findById(homeTeam).orElseThrow(()->new TeamDoesNotExistException(homeTeam));
+        Team Team2 = teamRepository.findById(awayTeam).orElseThrow(()->new TeamDoesNotExistException((awayTeam)));
         Delegation delegation=delegationRepository.findById(delegationId.intValue()).orElseThrow(()->new DelegationDoesNotExistException(delegationId));
         game.setResult(result);
         game.setDateОfMaintenance(dateОfMaintenance);
