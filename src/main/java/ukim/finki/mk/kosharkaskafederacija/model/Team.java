@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -14,6 +15,11 @@ import java.util.List;
 public class Team {
 
     @Id
+    @Column(name = "team_id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Long id;
+
+
     @Column(nullable = false)
     private String name;
 
@@ -35,7 +41,6 @@ public class Team {
             CascadeType.MERGE})
     List<Coach> coaches;
 
-    //to do: zaso tuka ne gi cuvame igracite i trenerot?
 
     public Team(String name, String address, String sponsor, String homeField) {
         this.name = name;
@@ -43,5 +48,7 @@ public class Team {
         this.sponsor = sponsor;
         this.homeField = homeField;
         points=0;
+        players=new ArrayList<>();
+        coaches=new ArrayList<>();
     }
 }

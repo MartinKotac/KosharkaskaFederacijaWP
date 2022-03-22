@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 import ukim.finki.mk.kosharkaskafederacija.model.Player;
 
 @Repository
-public interface PlayerRepository extends JpaRepository<Player,Integer> {
+public interface PlayerRepository extends JpaRepository<Player,Long> {
 }

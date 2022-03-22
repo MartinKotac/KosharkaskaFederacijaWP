@@ -8,6 +8,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Repository
-public interface GameRepository extends JpaRepository<Game,Integer> {
+public interface GameRepository extends JpaRepository<Game,Long> {
     List<Game> findAllByDateОfMaintenance(LocalDate date);
 }

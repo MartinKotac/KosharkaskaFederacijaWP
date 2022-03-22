@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 import ukim.finki.mk.kosharkaskafederacija.model.Team;
 
 @Repository
-public interface TeamRepository extends JpaRepository<Team,String> {
+public interface TeamRepository extends JpaRepository<Team,Long> {
 }

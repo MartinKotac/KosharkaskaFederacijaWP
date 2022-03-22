@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -27,17 +28,21 @@ public class Game {
     private Delegation delegation;
 
     @ManyToOne
-    private Team idHomeTeam;
+    private Team HomeTeam;
 
     @ManyToOne
-    private Team idAwayTeam;
+    private Team AwayTeam;
 
-    public Game(String statistics, LocalDate dateОfMaintenance, List<Referee> referees, Delegation delegation, Team idHomeTeam, Team idAwayTeam) {
+    @ManyToMany
+    private List<Player> players;
+
+    public Game(String statistics, LocalDate dateОfMaintenance, List<Referee> referees, Delegation delegation, Team HomeTeam, Team AwayTeam,List<Player> players) {
         this.result = statistics;
         this.dateОfMaintenance = dateОfMaintenance;
         this.referees = referees;
         this.delegation = delegation;
-        this.idHomeTeam = idHomeTeam;
-        this.idAwayTeam = idAwayTeam;
+        this.HomeTeam = HomeTeam;
+        this.AwayTeam = AwayTeam;
+        this.players=players;
     }
 }
