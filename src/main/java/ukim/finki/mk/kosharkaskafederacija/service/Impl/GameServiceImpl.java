@@ -37,10 +37,7 @@ public class GameServiceImpl implements GameService {
         Team Team2 = teamRepository.findById(awayTeam).orElseThrow(()->new TeamDoesNotExistException((awayTeam)));
         Delegation delegation=delegationRepository.findById(delegationId).orElseThrow(()->new DelegationDoesNotExistException(delegationId));
         List<Player> playerList=playerRepository.findAllById(players);
-        if(referees.size()>0)
-            return gameRepository.save(new Game(result,dateОfMaintenance,referees,delegation,Team1,Team2,playerList));
-        else
-            throw new RefereeDoesNotExistException(refereesId.get(0).longValue());
+        return gameRepository.save(new Game(result,dateОfMaintenance,referees,delegation,Team1,Team2,playerList));
     }
 
     @Override

@@ -52,9 +52,10 @@ public class CoachServiceImpl implements CoachService {
     }
 
     @Override
-    public Coach delete(Long id) {
+    public Coach delete(Long id,Long teamId) {
         Coach tmp=coachRepository.findById(id).orElseThrow(()->new CoachDoesNotExistException(id));
         coachRepository.deleteById(id);
+        teamRepository.findById(teamId).orElseThrow(()->new TeamDoesNotExistException(teamId)).getCoaches().remove(tmp);
         return tmp;
     }
 
@@ -67,7 +68,6 @@ public class CoachServiceImpl implements CoachService {
         if(teamRepository.findById(team).isPresent())
         {
             Team tmp=teamRepository.findById(team).get();
-            coach.setTeam(tmp);
             if((coachType.equals(CoachType.HEAD) && tmp.getCoaches().stream().anyMatch(p -> p.getCoachType().equals(CoachType.HEAD)))
                     || (coachType.equals(CoachType.ASSISTANT) && tmp.getCoaches().stream().filter(p->p.getCoachType().equals(CoachType.ASSISTANT)).count()>2))
             {
@@ -77,6 +77,8 @@ public class CoachServiceImpl implements CoachService {
             {
                coach.setCoachType(coachType);
             }
+            tmp.getCoaches().remove(coach);
+            tmp.getCoaches().add(coach);
             coachRepository.save(coach);
         }
         else
@@ -103,6 +105,7 @@ public class CoachServiceImpl implements CoachService {
         {
             teamFrom.getCoaches().remove(coach);
             teamTo.getCoaches().add(coach);
+            coach.setTeam(teamTo);
             return true;
         }
 

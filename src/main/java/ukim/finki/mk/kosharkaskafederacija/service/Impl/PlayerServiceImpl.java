@@ -37,13 +37,35 @@ public class PlayerServiceImpl implements PlayerService {
     }
 
     @Override
-    public Player delete(Long id) {
-        return null;
+    public Player delete(Long id,Long teamId) {
+        Player p=playerRepository.findById(id).orElseThrow(()-> new PlayerDoesNotExistException(id));
+        teamRepository.findById(teamId).orElseThrow(()->new TeamDoesNotExistException(teamId)).getPlayers().remove(p);
+        playerRepository.delete(p);
+        return p;
     }
 
     @Override
-    public Player edit(Long id, String name, Integer jerseyNumber, String position, String teamName) {
-        return null;
+    public Player edit(Long id, String name, Integer jerseyNumber, String position, Long teamId) {
+        Player player=playerRepository.findById(id).orElseThrow(()->new PlayerDoesNotExistException(id));
+        player.setJerseyNumber(jerseyNumber);
+        player.setPosition(position);
+        player.setName(name);
+        Team team=teamRepository.findById(teamId).orElseThrow(()->new TeamDoesNotExistException(id));
+        team.getPlayers().remove(player);
+        team.getPlayers().add(player);
+        playerRepository.save(player);
+        return player;
+    }
+
+    @Override
+    public boolean transfer(Long from, Long to, Long playerId) {
+        Team teamFrom=teamRepository.findById(from).orElseThrow(()->new TeamDoesNotExistException(from));
+        Team teamTo=teamRepository.findById(to).orElseThrow(()->new TeamDoesNotExistException(to));
+        Player player=playerRepository.findById(playerId).orElseThrow(()->new PlayerDoesNotExistException(playerId));
+        player.setTeam(teamTo);
+        teamFrom.getPlayers().remove(player);
+        teamTo.getPlayers().add(player);
+        return true;
     }
 
     @Override
@@ -53,7 +75,7 @@ public class PlayerServiceImpl implements PlayerService {
 
     @Override
     public List<Player> listAll() {
-        return null;
+        return playerRepository.findAll();
     }
 
     @Override
