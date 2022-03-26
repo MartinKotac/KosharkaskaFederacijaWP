@@ -25,6 +25,7 @@ public class CoachServiceImpl implements CoachService {
         this.coachRepository = coachRepository;
     }
 
+    //team e id so staticno se dava poso kreiranjeto na objekt od coach e samo preku team
     @Override
     public Coach create(String name, CoachType coachType, Long team) {
         if(teamRepository.findById(team).isPresent())
@@ -61,6 +62,7 @@ public class CoachServiceImpl implements CoachService {
 
 
 
+    //team e id so staticno se dava poso editiranjeto na objekt od coach e samo preku team
     @Override
     public Coach edit(Long id,String name, CoachType coachType, Long team) {
         Coach coach=coachRepository.findById(id).orElseThrow(()->new CoachDoesNotExistException(id));

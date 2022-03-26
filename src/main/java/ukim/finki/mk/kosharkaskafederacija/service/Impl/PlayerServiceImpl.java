@@ -22,6 +22,8 @@ public class PlayerServiceImpl implements PlayerService {
         this.playerRepository = playerRepository;
     }
 
+
+    //teamId staticno se dava poso kreiranjeto na objekt od player e samo preku team
     @Override
     public Player create(String name, Integer jerseyNumber, String position, Long teamId) {
         if(teamRepository.findById(teamId).isPresent())
@@ -44,6 +46,7 @@ public class PlayerServiceImpl implements PlayerService {
         return p;
     }
 
+    //teamId staticno se stava poso treba da go najdeme timo da izbrisame stario i da dodademe novio player linija 55 i 56
     @Override
     public Player edit(Long id, String name, Integer jerseyNumber, String position, Long teamId) {
         Player player=playerRepository.findById(id).orElseThrow(()->new PlayerDoesNotExistException(id));
