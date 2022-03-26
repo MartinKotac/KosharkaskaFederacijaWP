@@ -4,11 +4,9 @@ package ukim.finki.mk.kosharkaskafederacija.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ukim.finki.mk.kosharkaskafederacija.enumerations.Role;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Data
 @NoArgsConstructor
@@ -16,9 +14,12 @@ import javax.persistence.Id;
 @AllArgsConstructor
 public class User {
     @Id
-    private String mail;
+    private String Username;
 
     private String password;
-
+    private String name;
+    private String surname;
+    @Enumerated(value = EnumType.STRING)
+    private Role role;
 
 }

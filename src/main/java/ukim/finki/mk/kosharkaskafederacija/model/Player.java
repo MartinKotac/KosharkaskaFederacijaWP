@@ -13,6 +13,7 @@ public class Player {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String name;
     private Integer jerseyNumber;
 
     @Column(length = 2)
@@ -31,7 +32,8 @@ public class Player {
 
     private Integer gamesPlayed;
 
-    public Player(Integer jerseyNumber, String position, Team idTeam) {
+    public Player(String name,Integer jerseyNumber, String position, Team idTeam) {
+        this.name=name;
         this.jerseyNumber = jerseyNumber;
         this.position = position;
         this.team = idTeam;

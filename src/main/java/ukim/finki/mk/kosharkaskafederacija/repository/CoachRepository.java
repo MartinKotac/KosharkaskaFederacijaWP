@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 import ukim.finki.mk.kosharkaskafederacija.model.Coach;
 
 @Repository
-public interface CoachRepository extends JpaRepository<Coach,Integer> {
+public interface CoachRepository extends JpaRepository<Coach,Long> {
 }

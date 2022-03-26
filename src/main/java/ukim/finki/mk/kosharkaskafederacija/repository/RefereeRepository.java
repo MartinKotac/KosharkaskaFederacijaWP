@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 import ukim.finki.mk.kosharkaskafederacija.model.Referee;
 
 @Repository
-public interface RefereeRepository extends JpaRepository<Referee,Integer> {
+public interface RefereeRepository extends JpaRepository<Referee,Long> {
 }
