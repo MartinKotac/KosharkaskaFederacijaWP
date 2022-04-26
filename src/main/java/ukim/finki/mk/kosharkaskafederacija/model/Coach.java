@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Entity
 public class Coach {
     @Id
-    @Column(name = "coach_id",nullable = false)
+    @Column(nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 

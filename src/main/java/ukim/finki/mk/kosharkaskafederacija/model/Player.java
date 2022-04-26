@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Entity
 public class Player {
     @Id
-    @Column(name = "player_id",nullable = false)
+    @Column(nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
