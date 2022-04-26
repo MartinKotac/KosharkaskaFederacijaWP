@@ -12,7 +12,7 @@ import javax.persistence.*;
 public class Delegation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "delegation_id", nullable = false)
+    @Column(nullable = false)
     private Long id;
 
     @Column(nullable = false)

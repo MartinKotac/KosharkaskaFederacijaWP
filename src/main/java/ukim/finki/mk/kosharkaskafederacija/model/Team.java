@@ -15,7 +15,7 @@ import java.util.List;
 public class Team {
 
     @Id
-    @Column(name = "team_id", nullable = false)
+    @Column(nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
@@ -33,12 +33,14 @@ public class Team {
     private Integer points;
 
     private
-    @OneToMany(mappedBy = "player",fetch = FetchType.EAGER,cascade = {CascadeType.PERSIST,
-            CascadeType.MERGE})
+//    @OneToMany(fetch = FetchType.EAGER,cascade = {CascadeType.PERSIST,
+//            CascadeType.MERGE})
+    @OneToMany
     List<Player> players;
 
-    @OneToMany(mappedBy = "coach",fetch = FetchType.EAGER,cascade = {CascadeType.PERSIST,
-            CascadeType.MERGE})
+//    @OneToMany(fetch = FetchType.EAGER,cascade = {CascadeType.PERSIST,
+//            CascadeType.MERGE})
+    @OneToMany
     List<Coach> coaches;
 
 

@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Entity
 public class Referee {
     @Id
-    @Column(name = "referee_id", nullable = false)
+    @Column(nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
