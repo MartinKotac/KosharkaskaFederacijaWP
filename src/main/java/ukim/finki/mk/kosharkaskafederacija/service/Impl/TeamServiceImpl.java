@@ -3,10 +3,12 @@ package ukim.finki.mk.kosharkaskafederacija.service.Impl;
 import org.springframework.stereotype.Service;
 import ukim.finki.mk.kosharkaskafederacija.exceptions.TeamDoesNotExistException;
 import ukim.finki.mk.kosharkaskafederacija.model.Team;
+import ukim.finki.mk.kosharkaskafederacija.model.dto.TeamDto;
 import ukim.finki.mk.kosharkaskafederacija.repository.TeamRepository;
 import ukim.finki.mk.kosharkaskafederacija.service.TeamService;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TeamServiceImpl implements TeamService{
@@ -18,30 +20,31 @@ public class TeamServiceImpl implements TeamService{
     }
 
     @Override
-    public Team create(String name, String address, String sponsor, String homeField) {
-        return teamRepository.save(new Team(name,address,sponsor,homeField));
+    public Optional<Team> create(TeamDto teamDto) {
+        Team team =new Team(teamDto.getName(), teamDto.getAddress(), teamDto.getSponsor(), teamDto.getHomeField());
+        return Optional.of(teamRepository.save(team));
     }
 
     @Override
-    public Team findById(Long id) {
-        return teamRepository.findById(id).orElseThrow(()-> new TeamDoesNotExistException(id));
+    public Optional<Team>  findById(Long id) {
+        return Optional.of(teamRepository.findById(id).orElseThrow(()-> new TeamDoesNotExistException(id)));
     }
 
     @Override
-    public Team delete(Long id) {
+    public Optional<Team>  delete(Long id) {
         Team team=teamRepository.findById(id).orElseThrow(()-> new TeamDoesNotExistException(id));;
         teamRepository.delete(team);
-        return team;
+        return Optional.of(team);
     }
 
     @Override
-    public Team edit(Long id,String name, String address, String sponsor, String homeField) {
+    public Optional<Team> edit(Long id, TeamDto teamDto) {
         Team team=teamRepository.findById(id).orElseThrow(()-> new TeamDoesNotExistException(id));;
-        team.setName(name);
-        team.setAddress(address);
-        team.setSponsor(sponsor);
-        team.setHomeField(homeField);
-        return teamRepository.save(team);
+        team.setName(teamDto.getName());
+        team.setAddress(team.getAddress());
+        team.setSponsor(teamDto.getSponsor());
+        team.setHomeField(teamDto.getHomeField());
+        return Optional.of(teamRepository.save(team));
     }
 
     @Override

@@ -5,11 +5,13 @@ import ukim.finki.mk.kosharkaskafederacija.exceptions.PlayerDoesNotExistExceptio
 import ukim.finki.mk.kosharkaskafederacija.exceptions.TeamDoesNotExistException;
 import ukim.finki.mk.kosharkaskafederacija.model.Player;
 import ukim.finki.mk.kosharkaskafederacija.model.Team;
+import ukim.finki.mk.kosharkaskafederacija.model.dto.PlayerDto;
 import ukim.finki.mk.kosharkaskafederacija.repository.PlayerRepository;
 import ukim.finki.mk.kosharkaskafederacija.repository.TeamRepository;
 import ukim.finki.mk.kosharkaskafederacija.service.PlayerService;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PlayerServiceImpl implements PlayerService {
@@ -25,39 +27,38 @@ public class PlayerServiceImpl implements PlayerService {
 
     //teamId staticno se dava poso kreiranjeto na objekt od player e samo preku team
     @Override
-    public Player create(String name, Integer jerseyNumber, String position, Long teamId) {
-        if(teamRepository.findById(teamId).isPresent())
+    public Optional<Player> create(PlayerDto playerDto) {
+        if(teamRepository.findById(playerDto.getTeamId()).isPresent())
         {
-            Team team=teamRepository.findById(teamId).get();
-            Player player=new Player(name,jerseyNumber,position,team);
+            Team team=teamRepository.findById(playerDto.getTeamId()).get();
+            Player player=new Player(playerDto.getName(),playerDto.getJerseyNumber(),playerDto.getPosition(),team);
             playerRepository.save(player);
             team.getPlayers().add(player);
-            return player;
+            return Optional.of(player);
         }
         else
-            throw new TeamDoesNotExistException(teamId);
+            throw new TeamDoesNotExistException(playerDto.getTeamId());
     }
 
     @Override
-    public Player delete(Long id,Long teamId) {
+    public Optional<Player> delete(Long id) {
         Player p=playerRepository.findById(id).orElseThrow(()-> new PlayerDoesNotExistException(id));
-        teamRepository.findById(teamId).orElseThrow(()->new TeamDoesNotExistException(teamId)).getPlayers().remove(p);
         playerRepository.delete(p);
-        return p;
+        return Optional.of(p);
     }
 
     //teamId staticno se stava poso treba da go najdeme timo da izbrisame stario i da dodademe novio player linija 55 i 56
     @Override
-    public Player edit(Long id, String name, Integer jerseyNumber, String position, Long teamId) {
+    public Optional<Player> edit(Long id,PlayerDto playerDto) {
         Player player=playerRepository.findById(id).orElseThrow(()->new PlayerDoesNotExistException(id));
-        player.setJerseyNumber(jerseyNumber);
-        player.setPosition(position);
-        player.setName(name);
-        Team team=teamRepository.findById(teamId).orElseThrow(()->new TeamDoesNotExistException(id));
+        player.setJerseyNumber(playerDto.getJerseyNumber());
+        player.setPosition(playerDto.getPosition());
+        player.setName(playerDto.getName());
+        Team team=teamRepository.findById(playerDto.getTeamId()).orElseThrow(()->new TeamDoesNotExistException(id));
         team.getPlayers().remove(player);
         team.getPlayers().add(player);
         playerRepository.save(player);
-        return player;
+        return Optional.of(player);
     }
 
     @Override
@@ -72,8 +73,8 @@ public class PlayerServiceImpl implements PlayerService {
     }
 
     @Override
-    public Player findById(Long id) {
-        return playerRepository.findById(id).orElseThrow(()->new PlayerDoesNotExistException(id));
+    public Optional<Player> findById(Long id) {
+        return Optional.of(playerRepository.findById(id).orElseThrow(()->new PlayerDoesNotExistException(id)));
     }
 
     @Override

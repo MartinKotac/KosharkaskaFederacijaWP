@@ -31,8 +31,8 @@ public class CoachRestController {
     @GetMapping("/{id}")
     public ResponseEntity<Coach> findById(@PathVariable Long id){
         return coachService.findById(id)
-                .map(book->ResponseEntity.ok().body(book))
-                .orElseGet(()->ResponseEntity.notFound().build());
+                .map(t -> ResponseEntity.ok().body(t))
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
 
@@ -40,8 +40,8 @@ public class CoachRestController {
     @PostMapping("/add")
     public ResponseEntity<Coach> create(@RequestBody CoachDto coachDto){
         return this.coachService.create(coachDto)
-                .map(book->ResponseEntity.ok().body(book))
-                .orElseGet(()->ResponseEntity.notFound().build());
+                .map(t -> ResponseEntity.ok().body(t))
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     // update
@@ -49,8 +49,8 @@ public class CoachRestController {
     @PutMapping("/edit/{id}")
     public ResponseEntity<Coach> update(@PathVariable Long id,@RequestBody CoachDto coachDto) {
         return this.coachService.edit(id,coachDto)
-                .map(book->ResponseEntity.ok().body(book))
-                .orElseGet(()->ResponseEntity.badRequest().build());
+                .map(t -> ResponseEntity.ok().body(t))
+                .orElseGet(() -> ResponseEntity.notFound().build());
 
     }
 

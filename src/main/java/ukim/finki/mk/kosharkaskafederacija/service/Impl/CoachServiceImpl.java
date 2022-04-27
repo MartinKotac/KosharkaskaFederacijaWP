@@ -42,21 +42,21 @@ public class CoachServiceImpl implements CoachService {
         } else
             throw new TeamDoesNotExistException(coachDto.getTeamId());
     }
-    @Override
-    public Optional<Coach> createForDataInitializer(String name, CoachType coachType, Long team) {
-        if (teamRepository.findById(team).isPresent()) {
-            Team tmp = teamRepository.findById(team).get();
-            if ((coachType.equals(CoachType.HEAD) && tmp.getCoaches().stream().anyMatch(p -> p.getCoachType().equals(CoachType.HEAD)))
-                    || (coachType.equals(CoachType.ASSISTANT) && tmp.getCoaches().stream().filter(p -> p.getCoachType().equals(CoachType.ASSISTANT)).count() > 2)) {
-                throw new TeamCoachesLimitException(team);
-            } else {
-                Coach coach = coachRepository.save(new Coach(name, coachType, tmp));
-                tmp.getCoaches().add(coach);
-                return Optional.of(coach);
-            }
-        } else
-            throw new TeamDoesNotExistException(team);
-    }
+//    @Override
+//    public Optional<Coach> createForDataInitializer(String name, CoachType coachType, Long team) {
+//        if (teamRepository.findById(team).isPresent()) {
+//            Team tmp = teamRepository.findById(team).get();
+//            if ((coachType.equals(CoachType.HEAD) && tmp.getCoaches().stream().anyMatch(p -> p.getCoachType().equals(CoachType.HEAD)))
+//                    || (coachType.equals(CoachType.ASSISTANT) && tmp.getCoaches().stream().filter(p -> p.getCoachType().equals(CoachType.ASSISTANT)).count() > 2)) {
+//                throw new TeamCoachesLimitException(team);
+//            } else {
+//                Coach coach = coachRepository.save(new Coach(name, coachType, tmp));
+//                tmp.getCoaches().add(coach);
+//                return Optional.of(coach);
+//            }
+//        } else
+//            throw new TeamDoesNotExistException(team);
+//    }
 
     @Override
     public Optional<Coach> findById(Long id) {

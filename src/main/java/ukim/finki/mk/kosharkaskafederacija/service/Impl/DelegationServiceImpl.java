@@ -4,10 +4,12 @@ import org.springframework.stereotype.Service;
 import ukim.finki.mk.kosharkaskafederacija.exceptions.RefereeDoesNotExistException;
 import ukim.finki.mk.kosharkaskafederacija.model.Delegation;
 import ukim.finki.mk.kosharkaskafederacija.model.Referee;
+import ukim.finki.mk.kosharkaskafederacija.model.dto.DelegationDto;
 import ukim.finki.mk.kosharkaskafederacija.repository.DelegationRepository;
 import ukim.finki.mk.kosharkaskafederacija.service.DelegationService;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DelegationServiceImpl implements DelegationService {
@@ -18,27 +20,29 @@ public class DelegationServiceImpl implements DelegationService {
     }
 
     @Override
-    public Delegation create(Integer level) {
-        return delegationRepository.save(new Delegation(level));
+    public Optional<Delegation> create(DelegationDto delegationDto) {
+        Delegation delegation=new Delegation(delegationDto.getLevel());
+        return Optional.of(delegationRepository.save(delegation));
+
     }
 
     @Override
-    public Delegation delete(Long id) {
+    public Optional<Delegation> delete(Long id) {
         Delegation delegation=delegationRepository.findById(id).orElseThrow(()->new RefereeDoesNotExistException(id));
         delegationRepository.delete(delegation);
-        return delegation;
+        return Optional.of(delegation);
     }
 
     @Override
-    public Delegation edit(Long id, Integer level) {
+    public Optional<Delegation> edit(Long id, DelegationDto delegationDto) {
         Delegation delegation=delegationRepository.findById(id).orElseThrow(()->new RefereeDoesNotExistException(id));
-        delegation.setLevel(level);
-        return delegation;
+        delegation.setLevel(delegationDto.getLevel());
+        return Optional.of(delegation);
     }
 
     @Override
-    public Delegation findById(Long id) {
-        return delegationRepository.findById(id).orElseThrow(()->new RefereeDoesNotExistException(id));
+    public Optional<Delegation> findById(Long id) {
+        return Optional.of(delegationRepository.findById(id).orElseThrow(()->new RefereeDoesNotExistException(id)));
     }
 
     @Override

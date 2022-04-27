@@ -12,7 +12,7 @@ import java.util.Optional;
 
 public interface CoachService {
     public Optional<Coach> create(CoachDto coachDto);
-    public Optional<Coach> createForDataInitializer(String name, CoachType coachType, Long team);
+//    public Optional<Coach> createForDataInitializer(String name, CoachType coachType, Long team);
     public Optional<Coach> findById(Long id);
     public Optional<Coach> delete(Long id);
     public Optional<Coach> edit(Long id,CoachDto coachDto);
