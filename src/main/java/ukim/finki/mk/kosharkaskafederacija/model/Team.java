@@ -32,7 +32,6 @@ public class Team {
 
     private Integer points;
 
-    private
 //    @OneToMany(fetch = FetchType.EAGER,cascade = {CascadeType.PERSIST,
 //            CascadeType.MERGE})
     @OneToMany

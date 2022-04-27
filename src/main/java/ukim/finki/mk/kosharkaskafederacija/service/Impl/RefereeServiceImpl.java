@@ -3,10 +3,12 @@ package ukim.finki.mk.kosharkaskafederacija.service.Impl;
 import org.springframework.stereotype.Service;
 import ukim.finki.mk.kosharkaskafederacija.exceptions.RefereeDoesNotExistException;
 import ukim.finki.mk.kosharkaskafederacija.model.Referee;
+import ukim.finki.mk.kosharkaskafederacija.model.dto.RefereeDto;
 import ukim.finki.mk.kosharkaskafederacija.repository.RefereeRepository;
 import ukim.finki.mk.kosharkaskafederacija.service.RefereeService;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class RefereeServiceImpl implements RefereeService {
@@ -18,27 +20,28 @@ public class RefereeServiceImpl implements RefereeService {
     }
 
     @Override
-    public Referee create(Integer level) {
-        return refereeRepository.save(new Referee(level));
+    public Optional<Referee> create(RefereeDto refereeDto) {
+       Referee referee=new Referee(refereeDto.getLevel());
+       return Optional.of(refereeRepository.save(referee));
     }
 
     @Override
-    public Referee delete(Long id) {
+    public Optional<Referee> delete(Long id) {
         Referee referee=refereeRepository.findById(id).orElseThrow(()->new RefereeDoesNotExistException(id));
         refereeRepository.delete(referee);
-        return referee;
+        return Optional.of(referee);
     }
 
     @Override
-    public Referee edit(Long id, Integer level) {
+    public Optional<Referee> edit(Long id, RefereeDto refereeDto) {
         Referee referee=refereeRepository.findById(id).orElseThrow(()->new RefereeDoesNotExistException(id));
-        referee.setLevel(level);
-        return referee;
+        referee.setLevel(refereeDto.getLevel());
+        return Optional.of(referee);
     }
 
     @Override
-    public Referee findById(Long id) {
-        return refereeRepository.findById(id).orElseThrow(()->new RefereeDoesNotExistException(id));
+    public Optional<Referee> findById(Long id) {
+        return Optional.of(refereeRepository.findById(id).orElseThrow(()->new RefereeDoesNotExistException(id)));
     }
 
     @Override
