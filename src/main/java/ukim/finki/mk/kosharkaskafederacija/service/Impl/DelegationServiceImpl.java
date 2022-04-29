@@ -20,8 +20,8 @@ public class DelegationServiceImpl implements DelegationService {
     }
 
     @Override
-    public Optional<Delegation> create(DelegationDto delegationDto) {
-        Delegation delegation=new Delegation(delegationDto.getLevel());
+    public Optional<Delegation> create(Integer level) {
+        Delegation delegation=new Delegation(level);
         return Optional.of(delegationRepository.save(delegation));
 
     }

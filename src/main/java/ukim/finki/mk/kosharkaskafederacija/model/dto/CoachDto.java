@@ -10,7 +10,6 @@ import javax.persistence.ManyToOne;
 @Data
 public class CoachDto {
 
-
     private String name;
 
     private CoachType coachType;

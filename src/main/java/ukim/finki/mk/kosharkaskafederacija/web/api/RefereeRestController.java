@@ -30,14 +30,14 @@ public class RefereeRestController {
     }
 
 
-    //     create
     @PostMapping("/add")
-    public ResponseEntity<Referee> create(@RequestBody RefereeDto refereeDto) {
-        return this.refereeService.create(refereeDto)
+    public ResponseEntity<Referee> create(@RequestParam Integer level) {
+        return this.refereeService.create(level)
                 .map(t -> ResponseEntity.ok().body(t))
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    //     create
 //    update
 
     @PutMapping("/edit/{id}")

@@ -20,9 +20,10 @@ public class RefereeServiceImpl implements RefereeService {
     }
 
     @Override
-    public Optional<Referee> create(RefereeDto refereeDto) {
-       Referee referee=new Referee(refereeDto.getLevel());
-       return Optional.of(refereeRepository.save(referee));
+    public Optional<Referee> create(Integer level) {
+       Referee referee=new Referee(level);
+       refereeRepository.save(referee);
+       return Optional.of(referee);
     }
 
     @Override

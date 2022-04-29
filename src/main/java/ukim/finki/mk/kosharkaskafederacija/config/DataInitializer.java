@@ -1,10 +1,7 @@
 package ukim.finki.mk.kosharkaskafederacija.config;
 
 import org.springframework.stereotype.Component;
-import ukim.finki.mk.kosharkaskafederacija.enumerations.CoachType;
-import ukim.finki.mk.kosharkaskafederacija.service.CoachService;
-import ukim.finki.mk.kosharkaskafederacija.service.PlayerService;
-import ukim.finki.mk.kosharkaskafederacija.service.TeamService;
+import ukim.finki.mk.kosharkaskafederacija.service.*;
 
 import javax.annotation.PostConstruct;
 
@@ -14,16 +11,29 @@ public class DataInitializer {
     private final PlayerService playerService;
     private final TeamService teamService;
     private final CoachService coachService;
+    private final DelegationService delegationService;
+    private final RefereeService refereeService;
 
-    public DataInitializer(PlayerService playerService, TeamService teamService, CoachService coachService) {
+    public DataInitializer(PlayerService playerService, TeamService teamService, CoachService coachService, DelegationService delegationService, RefereeService refereeService) {
         this.playerService = playerService;
         this.teamService = teamService;
         this.coachService = coachService;
+        this.delegationService = delegationService;
+        this.refereeService = refereeService;
     }
 
 
     @PostConstruct
     public void initData(){
+        refereeService.create(1);
+        refereeService.create(1);
+        refereeService.create(2);
+        refereeService.create(2);
+
+        delegationService.create(1);
+        delegationService.create(1);
+        delegationService.create(2);
+        delegationService.create(2);
 
 //        playerService.create("Derick Rose",1,"PG",1L);
 //        playerService.create("Steph Curry",30,"PG",2L);
