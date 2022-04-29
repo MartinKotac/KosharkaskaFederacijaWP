@@ -28,10 +28,10 @@ public class Game {
     private Delegation delegation;
 
     @ManyToOne
-    private Team HomeTeam;
+    private Team homeTeam;
 
     @ManyToOne
-    private Team AwayTeam;
+    private Team awayTeam;
 
     @ManyToMany
     private List<Player> players;
@@ -41,8 +41,8 @@ public class Game {
         this.dateОfMaintenance = dateОfMaintenance;
         this.referees = referees;
         this.delegation = delegation;
-        this.HomeTeam = HomeTeam;
-        this.AwayTeam = AwayTeam;
+        this.homeTeam = HomeTeam;
+        this.awayTeam = AwayTeam;
         this.players=players;
     }
 }

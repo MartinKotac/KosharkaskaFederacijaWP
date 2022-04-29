@@ -3,7 +3,6 @@ package ukim.finki.mk.kosharkaskafederacija.service.Impl;
 import org.springframework.stereotype.Service;
 import ukim.finki.mk.kosharkaskafederacija.exceptions.DelegationDoesNotExistException;
 import ukim.finki.mk.kosharkaskafederacija.exceptions.GameDoesNotExistException;
-import ukim.finki.mk.kosharkaskafederacija.exceptions.RefereeDoesNotExistException;
 import ukim.finki.mk.kosharkaskafederacija.exceptions.TeamDoesNotExistException;
 import ukim.finki.mk.kosharkaskafederacija.model.*;
 import ukim.finki.mk.kosharkaskafederacija.repository.*;
@@ -11,6 +10,7 @@ import ukim.finki.mk.kosharkaskafederacija.service.GameService;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class GameServiceImpl implements GameService {
@@ -30,6 +30,7 @@ public class GameServiceImpl implements GameService {
     }
 
 
+
     @Override
     public Game create(String result, LocalDate dateОfMaintenance, List<Long> refereesId, Long delegationId, Long homeTeam, Long awayTeam,List<Long> players) {
         List<Referee> referees = refereeRepository.findAllById(refereesId);
@@ -41,8 +42,8 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
-    public Game findById(Long id) {
-        return gameRepository.findById(id).orElseThrow(()->new GameDoesNotExistException(id));
+    public Optional<Game> findById(Long id) {
+        return gameRepository.findById(id);
     }
 
     @Override
@@ -51,8 +52,8 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
-    public Game delete(Long id) {
-        Game game=gameRepository.findById(id).orElseThrow(()->new GameDoesNotExistException(id));
+    public Optional<Game> delete(Long id) {
+        Optional<Game> game=gameRepository.findById(id);
         gameRepository.deleteById(id);
         return game;
     }
@@ -73,5 +74,10 @@ public class GameServiceImpl implements GameService {
         game.setAwayTeam(Team2);
         game.setPlayers(playerList);
         return gameRepository.save(game);
+    }
+
+    @Override
+    public List<Game> findAll() {
+        return gameRepository.findAll();
     }
 }
