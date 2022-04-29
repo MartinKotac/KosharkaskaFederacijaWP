@@ -1,5 +1,6 @@
 package ukim.finki.mk.kosharkaskafederacija.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -34,12 +35,14 @@ public class Team {
 
 //    @OneToMany(fetch = FetchType.EAGER,cascade = {CascadeType.PERSIST,
 //            CascadeType.MERGE})
-    @OneToMany
+    @OneToMany(mappedBy = "team")
+    @JsonBackReference
     List<Player> players;
 
 //    @OneToMany(fetch = FetchType.EAGER,cascade = {CascadeType.PERSIST,
 //            CascadeType.MERGE})
-    @OneToMany
+    @OneToMany(mappedBy = "team")
+    @JsonBackReference
     List<Coach> coaches;
 
 

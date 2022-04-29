@@ -19,5 +19,4 @@ public interface PlayerService {
     public void setRpg();
     public void setMpg();
     public void addGame();
-
 }

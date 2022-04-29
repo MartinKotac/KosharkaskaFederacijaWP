@@ -53,8 +53,8 @@ public class PlayerRestController {
     //     delete
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Player> delete(@PathVariable Long id) {
-        this.playerService.delete(id);
-        if (this.playerService.findById(id).isEmpty()) return ResponseEntity.ok().build();
-        return ResponseEntity.badRequest().build();
+        return this.playerService.delete(id)
+                .map(t -> ResponseEntity.ok().body(t))
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 }
