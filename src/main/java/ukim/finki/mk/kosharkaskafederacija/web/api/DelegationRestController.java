@@ -34,7 +34,7 @@ public class DelegationRestController {
     //     create
     @PostMapping("/add")
     public ResponseEntity<Delegation> create(@RequestBody DelegationDto delegationDto) {
-        return this.delegationService.create(delegationDto)
+        return this.delegationService.create(delegationDto.getLevel())
                 .map(t -> ResponseEntity.ok().body(t))
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
