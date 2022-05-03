@@ -2,6 +2,7 @@ package ukim.finki.mk.kosharkaskafederacija.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -18,7 +19,7 @@ public class Game {
     private Long id;
 
     private String result;
-
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate dateОfMaintenance;
 
     @ManyToMany

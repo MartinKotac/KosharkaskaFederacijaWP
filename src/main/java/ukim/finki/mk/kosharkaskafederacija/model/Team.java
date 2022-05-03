@@ -33,14 +33,12 @@ public class Team {
 
     private Integer points;
 
-//    @OneToMany(fetch = FetchType.EAGER,cascade = {CascadeType.PERSIST,
-//            CascadeType.MERGE})
+//    @OneToMany(fetch = FetchType.EAGER,mappedBy = "team")
     @OneToMany(mappedBy = "team")
     @JsonBackReference
     List<Player> players;
 
-//    @OneToMany(fetch = FetchType.EAGER,cascade = {CascadeType.PERSIST,
-//            CascadeType.MERGE})
+//    @OneToMany(fetch = FetchType.EAGER,mappedBy = "team")
     @OneToMany(mappedBy = "team")
     @JsonBackReference
     List<Coach> coaches;
