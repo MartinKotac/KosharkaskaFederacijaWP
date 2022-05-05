@@ -8,6 +8,7 @@ import ukim.finki.mk.kosharkaskafederacija.model.dto.GameDto;
 import ukim.finki.mk.kosharkaskafederacija.model.dto.TeamDto;
 import ukim.finki.mk.kosharkaskafederacija.service.GameService;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -35,7 +36,7 @@ public class GameRestController {
     //     create
     @PostMapping("/add")
     public ResponseEntity<Game> create(@RequestBody GameDto gameDto) {
-        Game game=this.gameService.create(gameDto.getResult(),gameDto.getDateОfMaintenance(),gameDto.getRefereesId(),gameDto.getDelegation(),gameDto.getHomeTeam(),gameDto.getAwayTeam(),gameDto.getPlayers());
+        Game game=this.gameService.create(gameDto.getResult(), gameDto.getDateOfMaintenance(),gameDto.getRefereesId(),gameDto.getDelegation(),gameDto.getHomeTeam(),gameDto.getAwayTeam(),gameDto.getPlayers());
         return ResponseEntity.ok().body(game);
     }
 
@@ -43,7 +44,7 @@ public class GameRestController {
 
     @PutMapping("/edit/{id}")
     public ResponseEntity<Game> update(@PathVariable Long id, @RequestBody GameDto gameDto) {
-        Game game=this.gameService.edit(id,gameDto.getResult(),gameDto.getDateОfMaintenance(),gameDto.getRefereesId(),gameDto.getDelegation(),gameDto.getHomeTeam(),gameDto.getAwayTeam(),gameDto.getPlayers());
+        Game game=this.gameService.edit(id,gameDto.getResult(),gameDto.getDateOfMaintenance(),gameDto.getRefereesId(),gameDto.getDelegation(),gameDto.getHomeTeam(),gameDto.getAwayTeam(),gameDto.getPlayers());
         return ResponseEntity.ok().body(game);
 
     }

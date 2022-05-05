@@ -6,6 +6,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +21,7 @@ public class Game {
 
     private String result;
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    private LocalDate dateОfMaintenance;
+    private LocalDateTime dateOfMaintenance;
 
     @ManyToMany
     private List<Referee> referees;
@@ -37,9 +38,9 @@ public class Game {
     @ManyToMany
     private List<Player> players;
 
-    public Game(String statistics, LocalDate dateОfMaintenance, List<Referee> referees, Delegation delegation, Team HomeTeam, Team AwayTeam,List<Player> players) {
+    public Game(String statistics, LocalDateTime dateOfMaintenance, List<Referee> referees, Delegation delegation, Team HomeTeam, Team AwayTeam,List<Player> players) {
         this.result = statistics;
-        this.dateОfMaintenance = dateОfMaintenance;
+        this.dateOfMaintenance = dateOfMaintenance;
         this.referees = referees;
         this.delegation = delegation;
         this.homeTeam = HomeTeam;

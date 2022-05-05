@@ -9,6 +9,7 @@ import ukim.finki.mk.kosharkaskafederacija.repository.*;
 import ukim.finki.mk.kosharkaskafederacija.service.GameService;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,7 +33,7 @@ public class GameServiceImpl implements GameService {
 
 
     @Override
-    public Game create(String result, LocalDate dateОfMaintenance, List<Long> refereesId, Long delegationId, Long homeTeam, Long awayTeam,List<Long> players) {
+    public Game create(String result, LocalDateTime dateОfMaintenance, List<Long> refereesId, Long delegationId, Long homeTeam, Long awayTeam, List<Long> players) {
         List<Referee> referees = refereeRepository.findAllById(refereesId);
         Team Team1=teamRepository.findById(homeTeam).orElseThrow(()->new TeamDoesNotExistException(homeTeam));
         Team Team2 = teamRepository.findById(awayTeam).orElseThrow(()->new TeamDoesNotExistException((awayTeam)));
@@ -47,8 +48,8 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
-    public List<Game> findByDate(LocalDate date) {
-        return gameRepository.findAllByDateОfMaintenance(date);
+    public List<Game> findByDate(LocalDateTime date) {
+        return gameRepository.findAllByDateOfMaintenance(date);
     }
 
     @Override
@@ -59,7 +60,7 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
-    public Game edit(Long id, String result, LocalDate dateОfMaintenance, List<Long> refereesId, Long delegationId, Long homeTeam, Long awayTeam,List<Long> players) {
+    public Game edit(Long id, String result, LocalDateTime dateОfMaintenance, List<Long> refereesId, Long delegationId, Long homeTeam, Long awayTeam,List<Long> players) {
         Game game=gameRepository.findById(id).orElseThrow(()->new GameDoesNotExistException(id));
         List<Referee> referees = refereeRepository.findAllById(refereesId);
         Team Team1=teamRepository.findById(homeTeam).orElseThrow(()->new TeamDoesNotExistException(homeTeam));
@@ -67,7 +68,7 @@ public class GameServiceImpl implements GameService {
         List<Player> playerList=playerRepository.findAllById(players);
         Delegation delegation=delegationRepository.findById(delegationId).orElseThrow(()->new DelegationDoesNotExistException(delegationId));
         game.setResult(result);
-        game.setDateОfMaintenance(dateОfMaintenance);
+        game.setDateOfMaintenance(dateОfMaintenance);
         game.setReferees(referees);
         game.setDelegation(delegation);
         game.setHomeTeam(Team1);
