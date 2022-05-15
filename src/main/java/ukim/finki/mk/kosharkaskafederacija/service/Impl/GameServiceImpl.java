@@ -39,6 +39,18 @@ public class GameServiceImpl implements GameService {
         Team Team2 = teamRepository.findById(awayTeam).orElseThrow(()->new TeamDoesNotExistException((awayTeam)));
         Delegation delegation=delegationRepository.findById(delegationId).orElseThrow(()->new DelegationDoesNotExistException(delegationId));
         List<Player> playerList=playerRepository.findAllById(players);
+        playerList.forEach(a->{
+            a.setGamesPlayed(a.getGamesPlayed()+1);
+            playerRepository.save(a);
+        });
+        int t1= Integer.parseInt(result.split("-")[0]);
+        int t2= Integer.parseInt(result.split("-")[1]);
+        if(t1>t2){
+            Team1.setPoints(Team1.getPoints()+2);
+        }else if(t1<t2){
+            Team2.setPoints(Team1.getPoints()+2);
+        }
+
         return gameRepository.save(new Game(result,dateОfMaintenance,referees,delegation,Team1,Team2,playerList));
     }
 
