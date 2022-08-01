@@ -1,5 +1,6 @@
 package ukim.finki.mk.kosharkaskafederacija.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,7 +16,7 @@ import java.util.List;
 public class Team {
 
     @Id
-    @Column(name = "team_id", nullable = false)
+    @Column(nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
@@ -32,13 +33,14 @@ public class Team {
 
     private Integer points;
 
-    private
-    @OneToMany(mappedBy = "player",fetch = FetchType.EAGER,cascade = {CascadeType.PERSIST,
-            CascadeType.MERGE})
+//    @OneToMany(fetch = FetchType.EAGER,mappedBy = "team")
+    @OneToMany(mappedBy = "team")
+    @JsonBackReference
     List<Player> players;
 
-    @OneToMany(mappedBy = "coach",fetch = FetchType.EAGER,cascade = {CascadeType.PERSIST,
-            CascadeType.MERGE})
+//    @OneToMany(fetch = FetchType.EAGER,mappedBy = "team")
+    @OneToMany(mappedBy = "team")
+    @JsonBackReference
     List<Coach> coaches;
 
 

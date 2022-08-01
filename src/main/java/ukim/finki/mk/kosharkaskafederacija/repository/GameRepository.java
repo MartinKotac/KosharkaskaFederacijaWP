@@ -5,9 +5,10 @@ import org.springframework.stereotype.Repository;
 import ukim.finki.mk.kosharkaskafederacija.model.Game;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
 public interface GameRepository extends JpaRepository<Game,Long> {
-    List<Game> findAllByDateОfMaintenance(LocalDate date);
+    List<Game> findAllByDateOfMaintenance(LocalDateTime date);
 }
